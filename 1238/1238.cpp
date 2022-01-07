@@ -2,7 +2,7 @@
 #include <queue>
 #include <vector>
 using namespace std;
-#define INF 1000
+#define INF 1e9+7 // 1000으로 잡았다가 계속 오류남;;
 
 int N,M,X;
 vector <pair<int,int>> v[1001]; // vec_end, cost
