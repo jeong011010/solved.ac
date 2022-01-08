@@ -47,17 +47,14 @@ void f(){
     Dijkstra(1);
     case_1 += Dist[v1];
     case_2 += Dist[v2];
-    cout<<case_1<<' '<<case_1<<'\n';
     Dijkstra(v1);
     case_1 += Dist[v2];
     case_2 += Dist[N];
-    cout<<case_1<<' '<<case_1<<'\n';
     Dijkstra(v2);
     case_1 += Dist[N];
     case_2 += Dist[v1];
-    cout<<case_1<<' '<<case_1<<'\n';
     int ans = (case_1<case_2?case_1:case_2);
-    if(ans>100000000 || ans<0) cout<<-1;
+    if(ans>10000000 || ans<0) cout<<-1;
     else cout<<ans;
 }
 
