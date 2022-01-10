@@ -10,20 +10,6 @@ struct Edge{
 int TC, N,M,W,e=0;
 vector<int> TIME;
 
-void input(vector<Edge> v){
-    int S,E,T;
-    cin>>N>>M>>W;
-    for(int i=0;i<M;i++){
-        cin>>S>>E>>T;
-        v.push_back({S,E,T});
-        v.push_back({E,S,T});
-    }
-    for(int i=0;i<W;i++){
-        cin>>S>>E>>T;
-        v.push_back({S,E,-T});
-    }
-}
-
 bool Bellman_Ford(vector<Edge> v){
     TIME.clear();
     TIME.resize(N+1,INF);
@@ -55,17 +41,17 @@ void solve(){
     cin>>TC;
     for(int i=0;i<TC;i++){
         vector<Edge> v;
-            int S,E,T;
-    cin>>N>>M>>W;
-    for(int i=0;i<M;i++){
-        cin>>S>>E>>T;
-        v.push_back({S,E,T});
-        v.push_back({E,S,T});
-    }
-    for(int i=0;i<W;i++){
-        cin>>S>>E>>T;
-        v.push_back({S,E,-T});
-    }
+        int S,E,T;
+        cin>>N>>M>>W;
+        for(int i=0;i<M;i++){
+            cin>>S>>E>>T;
+            v.push_back({S,E,T});
+            v.push_back({E,S,T});
+        }
+        for(int i=0;i<W;i++){
+            cin>>S>>E>>T;
+            v.push_back({S,E,-T});
+        }
         if(Bellman_Ford(v)) cout<<"YES"<<"\n";
         else cout<<"NO"<<"\n";
     }
