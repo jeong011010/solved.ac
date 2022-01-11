@@ -2,7 +2,7 @@
 #include<queue>
 #include<vector>
 using namespace std;
-#define INF 10000000
+#define INF 1e9+7
 
 vector<pair<int,int>> v[1001];
 vector<int> Dist;
