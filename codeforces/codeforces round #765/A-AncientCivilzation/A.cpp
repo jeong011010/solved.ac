@@ -19,10 +19,6 @@ void input(){
         for(int j=0;j<l;j++){
             num[i].push_back(((int)s[30-l+j])-48);
         }
-        for(int j=0;j<l;j++){
-            //cout<<num[i][j];
-        }
-        //cout<<'\n';
     }
 
 }
@@ -38,7 +34,6 @@ void f(){
         }
         answer += (n_1>n_0?1:0);   
     }
-    //cout<<answer;
     for(int i=0;answer>=1;i++){
         tmp+=(answer%10)*pow;
         pow*=2;
