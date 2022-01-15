@@ -49,9 +49,7 @@ void Dijkstra(int Start){
 
 void f(){
     Dijkstra(1);
-    cout<<m<<' '<<m_cur<<'\n';
     Dijkstra(m_cur);
-    cout<<m<<' '<<m_cur<<'\n';    
     cout<<m;
 }
 
