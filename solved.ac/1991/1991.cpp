@@ -2,12 +2,12 @@
 #include<vector>
 using namespace std;
 
-typedef struct tree{
+typedef struct tree{ // tree struct
     bool check;
     char key;
     int left, right;
 }tree;
-tree t[27];
+tree t[27]; // 최대치만큼 t배열
 
 int N;
 
@@ -30,19 +30,19 @@ void input(){
 
 void OrderTraversal(int n, int mode){
     if(!t[n].check){
-        if(mode==1)cout<<t[n].key;
+        if(mode==0)cout<<t[n].key; // preorder
         t[n].check = true;
         if(t[n].left!=0) OrderTraversal(t[n].left, mode);
-        if(mode==2)cout<<t[n].key;
+        if(mode==1)cout<<t[n].key; // inorder
         if(t[n].right!=0) OrderTraversal(t[n].right, mode);    
-        if(mode==3)cout<<t[n].key;    
+        if(mode==2)cout<<t[n].key; // postorder
     }
     return;
 }
 
 void f(){
-    for(int i=1;i<4;i++){
-        for(int i=0;i<27;i++) t[i].check=false;
+    for(int i=0;i<3;i++){ // order traversal mode
+        for(int i=0;i<27;i++) t[i].check=false; // init t[i].check
         OrderTraversal(0,i);
         cout<<'\n';
     }
