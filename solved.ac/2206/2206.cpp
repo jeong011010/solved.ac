@@ -3,7 +3,7 @@
 using namespace std;
 
 int arr[1002][1002];
-bool visited[1002][1002][2];
+bool visited[1002][1002][2]; // 벽을 부순것과 안부순 것 따로 구분하여 방문 배열 선언
 int N,M;
 int arr_x[4] = {0,0,-1,1};
 int arr_y[4] = {-1,1,0,0};
@@ -12,7 +12,7 @@ typedef struct tile{
     int count;
     bool wall;
 }tile;
-queue<tile> q;
+queue<tile> q; // tile 구조체 자료형 queue
 
 void input(){
     string s;
@@ -37,16 +37,16 @@ void search(tile t){
         if(arr[tmp.n][tmp.m]==0 && !visited[tmp.n][tmp.m][tmp.wall]){
             q.push(tmp); 
             visited[tmp.n][tmp.m][tmp.wall]=true;
-        }
+        } // 길이 있으면서, 현재 벽 파괴 여부 방문 배열에서 방문하지 않았다면.
         if(arr[tmp.n][tmp.m]==1 && !tmp.wall)
         {
             tmp.wall=1;
             q.push(tmp);
             visited[tmp.n][tmp.m][tmp.wall]=true;            
-        }
+        } // 길이 없으며, 현재 벽을 파괴 안했다면
     }
 }
-void print(){
+/*void print(){
     for(int i=1;i<=N;i++){
         for(int j=1;j<=M;j++)
             cout<<visited[i][j][0];
@@ -59,18 +59,16 @@ void print(){
         cout<<'\n';
     }
     cout<<'\n';
-}
+}*/
 
-void f(){
-    int c;
+void bfs(){
     q.push({1,1,1,0});
-    //visited[1][1][0]=true;
+    visited[1][1][0]=true;
     tile t;
     bool clear=0;
-    while(!q.empty()){
+    while(!q.empty()){ // bfs()
         t = q.front();
         q.pop();
-        c++;
         if(t.n==N&&t.m==M){
             clear=1;
             break;
@@ -82,7 +80,7 @@ void f(){
 
 void solve(){
     input();
-    f();
+    bfs();
 }
 
 int main(){
