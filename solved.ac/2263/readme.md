@@ -8,7 +8,7 @@
 ----------
 위 문제는 분할과 정복을 이용하여 풀 수 있는 문제이다.
 문제를 풀기 위한 기본 베이스는 트리의 전위 중위 후위 순회와 그 규칙을 알고 있어야 한다.
-- 트리의 순회 규칙은 [여기로](https://github.com/jeong011010/solved.ac/tree/main/solved.ac/1991)
+- 트리의 순회 규칙은 [여기로](https://github.com/jeong011010/solved.ac/tree/main/solved.ac/1991#%ED%8A%B8%EB%A6%AC%EC%9D%98-%EC%88%9C%ED%9A%8C)
 
 중위 순회와 후위 순회가 주어졌을 때 전위 순회를 알 수 있는 방법은 다음과 같았다.
 1. 후위 순회의 가장 마지막 노드가 root이다.
