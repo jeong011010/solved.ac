@@ -43,32 +43,27 @@ void dfs(){
     stack<pair<int,int>> s;
     s.push(make_pair(1,1));
 
-    while(!s.empty()){
-        
+    while(!s.empty()){       
         int y=s.top().first;
         int x=s.top().second;
         s.pop();
+        if(check[y][x]==false){        
+            check[y][x]=true;
 
-        if(check[y][x]==false){
-        
-        check[y][x]=true;
-
-        for(int i=0;i<4;i++){
-            int my = y+yMove[i];
-            int mx = x+xMove[i];
-            if(!check[my][mx]){
-                if(arr[my][mx]==0){
-                    s.push(make_pair(my,mx));
-                }
-                else if(arr[my][mx]>0){
-                    arr[my][mx]++;
+            for(int i=0;i<4;i++){
+                int my = y+yMove[i];
+                int mx = x+xMove[i];
+                if(!check[my][mx]){
+                    if(arr[my][mx]==0){
+                        s.push(make_pair(my,mx));
+                    }
+                    else if(arr[my][mx]>0){
+                        arr[my][mx]++;
+                    }
                 }
             }
         }
-        
-    }
-    }
-    
+    }  
     count++;
 }
 
