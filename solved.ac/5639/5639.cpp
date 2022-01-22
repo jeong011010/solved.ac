@@ -2,8 +2,6 @@
 #include <vector>
 using namespace std;
 
-//0<= node <=10000
-
 int tree[10000];
 void postOrder(int start, int end) {
 	if (start >= end) {
@@ -13,16 +11,16 @@ void postOrder(int start, int end) {
 		cout << tree[start] << '\n';
 		return;
 	}
-	int idx = start + 1;
-	while (idx<end) {
-		if (tree[start]<tree[idx]) {
+	int i = start + 1;
+	while (i<end) {
+		if (tree[start]<tree[i]) {
 			break;
 		}
-		idx++;
+		i++;
 	}
 	
-	postOrder(start+1, idx);
-	postOrder(idx, end);
+	postOrder(start+1, i);
+	postOrder(i, end);
 	cout << tree[start] << '\n';
 }
 
@@ -32,12 +30,12 @@ int main() {
 	cout.tie(0);
 	
 	int num;
-	int inputIdx = 0;
+	int i = 0;
 	while (cin >> num) {
-		tree[inputIdx++] = num;
+		tree[i++] = num;
 	}
 
-	postOrder(0,inputIdx);
+	postOrder(0,i);
 
 
 
