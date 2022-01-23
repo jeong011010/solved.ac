@@ -20,12 +20,12 @@ void f(){
             ans = max(ans,arr[i][j]);
         }
     }
-    for(int i=0;i<=s2.size();i++){
+    /*for(int i=0;i<=s2.size();i++){
         for(int j=0;j<=s1.size();j++){
             cout<<arr[i][j]<<' ';
         }
         cout<<'\n';
-    }
+    }*/
     cout<<ans;
 }
 
