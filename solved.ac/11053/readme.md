@@ -31,6 +31,8 @@ for(int i=1;i<N;i++){
 }
 ```
 
+참고) - [[유튜브](https://www.youtube.com/watch?v=aPQY__2H3tE&t=509s)]
+
 ### 오답노트
 ----------
 처음에 DP 점화식을 세우지 못하고 어리바리 깠따.
