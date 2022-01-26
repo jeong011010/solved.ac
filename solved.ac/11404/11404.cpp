@@ -7,24 +7,19 @@ int weight_arr[100][100];
 
 void input(){
     cin>>N>>M;
+    for(int i=0;i<N;i++){
+        for(int j=0;j<N;j++) 
+            weight_arr[i][j]=INF;
+    }
     int a,b,c;
     for(int i=0;i<M;i++) {
         cin>>a>>b>>c;
-        if(weight_arr[a-1][b-1]>0)
-            weight_arr[a-1][b-1]=min(c,weight_arr[a-1][b-1]);
-        else weight_arr[a-1][b-1]=c;
-    }
-}
-
-void init(){
-    for(int i=0;i<N;i++){
-        for(int j=0;j<N;j++) 
-            if(weight_arr[i][j]==0&&i!=j) weight_arr[i][j]=INF;
+        if(weight_arr[a-1][b-1]>c)
+            weight_arr[a-1][b-1]=c;
     }
 }
 
 void Floyd_Warshall(){
-    init();
     for(int k=0;k<N;k++)
         for(int i=0;i<N;i++)
             for(int j=0;j<N;j++)
@@ -34,8 +29,12 @@ void Floyd_Warshall(){
 
 void print(){
     for(int i=0;i<N;i++){
-        for(int j=0;j<N;j++)
-            cout<<weight_arr[i][j]<<' ';
+        for(int j=0;j<N;j++){
+            if(weight_arr[i][j]==INF||i==j)
+                cout<<"0 ";
+            else
+                cout<<weight_arr[i][j]<<' ';
+            }
         cout<<'\n';
     }
 }
