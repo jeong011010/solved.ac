@@ -15,6 +15,33 @@
 
 ### 아이디어
 ----------
+위 문제는 문자열 (stack구조)을 이용하여 풀 수 있었다.
+
+처음엔 string 헤더의 find을 이용하여 폭발 문자열의 위치를 찾고, substr로 나누어 합치는 함수를 구현하였다.
+
+```c++
+bool f(){
+    int tmp = s.find(es);
+    if(tmp == string::npos) return false;
+    string a = s.substr(0,tmp);
+    string b = s.substr(tmp+es.length(),s.length());
+    s=a+b;
+    return true;
+}
+```
+
+하지만 string을 계속해서 선언하고 합치고 하게되어 시간초과가 났다.
+
+알고리즘 종류를 보니까 stack이 있길래 string에도 pop_back이 있어 그걸 사용하기로 했다.
+
+1. 우선 문자열을 for문으로 하나씩 확인하며 ans 배열에 더한다.
+2. 만약 폭발 문자열의 마지막과 같은 문자를 찾으면(폭발 문자열은 중복이 아니기 때문에 가능함)
+3. ans의 끝 index부터 폭발 문자열의 길이만큼 for문으로 폭발 문자열의 각 문자와 일치하는지 확인한다.
+4. 다르다면 break로 나와 계속 진행한다.
+5. 같다면 폭발 문자열의 길이만큼 ans.pop_back() 해준다.
 
 ### 오답노트
 ----------
+위에 언급했듯이 stack을 사용하지 않고 무한 string 선언과 함수 호출로 시간초과가 났다.
+
+문자열 문제 밥으로 보고있었는데 어려운건 생각보다 어렵네..^^
