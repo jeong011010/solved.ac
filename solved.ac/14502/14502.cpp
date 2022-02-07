@@ -24,8 +24,8 @@ void input(){
 }
 
 void bfs(int a, int b, int c){
-    int size= (N+2)*(M+2);
-    copy(&arr[0][0],&arr[0][0]+size,&tmp[0][0]);
+    //int size= (N+2)*(M+2);
+    copy(&arr[0][0],&arr[0][0]+100,&tmp[0][0]);
 
     tmp[wall[a].first][wall[a].second] = 1;
     tmp[wall[b].first][wall[b].second] = 1;
@@ -34,11 +34,11 @@ void bfs(int a, int b, int c){
     queue<pair<int,int>> q;
     for(int i=0;i<virus.size();i++) q.push(virus[i]);
 
-    for(int i=0;i<=N+1;i++){
+    /*for(int i=0;i<=N+1;i++){
         for(int j=0;j<=M+1;j++)
             cout<<tmp[i][j]<<' ';
         cout<<'\n';   
-    }
+    }*/
 
     while(!q.empty()){
         int x = q.front().first;
@@ -46,7 +46,7 @@ void bfs(int a, int b, int c){
         q.pop();
         for(int i=0;i<4;i++){
             if(tmp[x+m_x[i]][y+m_y[i]]==0){
-                cout<<x<<'+'<<m_x[i]<<','<<y<<'+'<<m_y[i]<<'\n';
+                //cout<<x<<'+'<<m_x[i]<<','<<y<<'+'<<m_y[i]<<'\n';
                 q.push({x+m_x[i],y+m_y[i]});
                 tmp[x+m_x[i]][y+m_y[i]]=2;
             }
