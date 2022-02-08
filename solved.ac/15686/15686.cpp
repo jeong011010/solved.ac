@@ -11,7 +11,7 @@ int N,M;
 int arr[52][52];
 int m_x[4]={-1,1,0,0};
 int m_y[4]={0,0,-1,1};
-vector<pair<int,int>> house, Chouse;
+vector<pair<int,int>> house, Chouse, V;
 
 void input(){
     cin>>N>>M;
@@ -24,16 +24,30 @@ void input(){
         arr[0][i]=arr[N+1][i]=arr[i][0]=arr[i][N+1]=3;
 }
 
-class space{
+/*class space{
 public:    
     int x,y;
     int cnt;
-};
+};*/
 
 void bfs(int tmp[52][52]){
     int cnt=0;
 
-    space s;
+    for(int i=0;i<house.size();i++){
+        int x = house[i].first;
+        int y = house[i].second;
+        int d = 1e9+7;
+
+        for(int j=0;j<V.size();j++){
+            int xx = V[j].first;
+            int yy = V[j].second;
+            int Dist = abs(xx - x) + abs(yy - y);
+            d = min(d,Dist);
+        }
+        cnt += d;
+    }
+
+    /*space s;
     for(int i=0;i<house.size();i++){
         queue<space> q;
         s = {house[i].first,house[i].second,1};
@@ -57,8 +71,10 @@ void bfs(int tmp[52][52]){
             }
             if(find) break;
         }
-    }
+    }*/
     //cout<<cnt<<'\n';
+
+
     ans=min(ans,cnt);
 }
 
@@ -69,9 +85,11 @@ void r(int cnt, int n, int tmp[52][52]){
     }
     else{
         for(int i=n;i<Chouse.size()-M+1+n;i++){
-            tmp[Chouse[i].first][Chouse[i].second] = 2;
+            //tmp[Chouse[i].first][Chouse[i].second] = 2;
+            V.push_back(Chouse[i]);
             r(cnt,n+1,tmp);
-            tmp[Chouse[i].first][Chouse[i].second] = 0;
+            //[Chouse[i].first][Chouse[i].second] = 0;
+            V.pop_back();
         }
     }
 }
