@@ -6,6 +6,7 @@
 #include<algorithm>
 using namespace std;
 
+int ans=1e9+7;
 int N,M;
 int arr[52][52];
 int m_x[4]={-1,1,0,0};
@@ -18,7 +19,7 @@ void input(){
         for(int j=1;j<=N;j++){
             cin>>arr[i][j]; 
             if(arr[i][j]==1)house.push_back({i,j});
-            else if(arr[i][j]==2)Chouse.push_back({i,j});}
+            else if(arr[i][j]==2){Chouse.push_back({i,j});arr[i][j]=0;}}
     for(int i=0;i<=N+1;i++)
         arr[0][i]=arr[N+1][i]=arr[i][0]=arr[i][N+1]=3;
 }
@@ -57,21 +58,36 @@ void bfs(int tmp[52][52]){
             if(find) break;
         }
     }
-    cout<<cnt;
+    //cout<<cnt<<'\n';
+    ans=min(ans,cnt);
+}
+
+void r(int cnt, int n, int tmp[52][52]){
+    if(cnt==n){
+        bfs(tmp);
+        return;
+    }
+    else{
+        for(int i=n;i<Chouse.size()-M+1+n;i++){
+            tmp[Chouse[i].first][Chouse[i].second] = 2;
+            r(cnt,n+1,tmp);
+            tmp[Chouse[i].first][Chouse[i].second] = 0;
+        }
+    }
 }
 
 void f(){
-    int tmp[52][52];
-    copy(&arr[0][0],&arr[0][0]+2704,&tmp[0][0]);
+    /*int tmp[52][52];
+    copy(&arr[0][0],&arr[0][0]+2704,&tmp[0][0]);*/
     int n=ceil((double)Chouse.size()/2);
-    if(M>n){
-        n=M-n;
-    }
 
+    r(M,0,arr);
+    cout<<ans;
 }
 
 void solve(){
     input();
+    f();
 }
 
 int main(){
