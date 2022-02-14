@@ -100,5 +100,4 @@ int solution(vector<vector<int>> rectangle, int characterX, int characterY, int 
     r=rectangle;
     setmap();
     return bfs();
-    
 }
