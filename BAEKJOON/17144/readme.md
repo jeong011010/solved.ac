@@ -22,7 +22,7 @@
 >   - 공기청정기에서 부는 바람은 미세먼지가 없는 바람이고, 공기청정기로 들어간 미세먼지는 모두 정화된다.
 >다음은 확산의 예시이다.
 >
-><img width="50%" src="https://upload.acmicpc.net/7b0d9d57-1296-44cd-8951-4135d27f9446/-/preview/">
+><img width="50%" align="center" src="https://upload.acmicpc.net/7b0d9d57-1296-44cd-8951-4135d27f9446/-/preview/">
 >
 >왼쪽과 오른쪽에 칸이 없기 때문에, 두 방향으로만 확산이 일어났다.
 >
