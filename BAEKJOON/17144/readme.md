@@ -4,7 +4,7 @@
 
 >미세먼지를 제거하기 위해 구사과는 공기청정기를 설치하려고 한다. 공기청정기의 성능을 테스트하기 위해 구사과는 집을 크기가 R×C인 격자판으로 나타냈고, 1×1 크기의 칸으로 나눴다. 구사과는 뛰어난 코딩 실력을 이용해 각 칸 (r, c)에 있는 미세먼지의 양을 실시간으로 모니터링하는 시스템을 개발했다. (r, c)는 r행 c열을 의미한다.
 >
-><img src="https://upload.acmicpc.net/75d322ad-5a89-4301-b3a7-403fce0ff966/-/preview/">
+><img width="50%" src="https://upload.acmicpc.net/75d322ad-5a89-4301-b3a7-403fce0ff966/-/preview/">
 >
 >공기청정기는 항상 1번 열에 설치되어 있고, 크기는 두 행을 차지한다. 공기청정기가 설치되어 있지 않은 칸에는 미세먼지가 있고, (r, c)에 있는 미세먼지의 양은 Ar,c이다.
 >
@@ -22,21 +22,21 @@
 >   - 공기청정기에서 부는 바람은 미세먼지가 없는 바람이고, 공기청정기로 들어간 미세먼지는 모두 정화된다.
 >다음은 확산의 예시이다.
 >
-><img width="50%" align="center" src="https://upload.acmicpc.net/7b0d9d57-1296-44cd-8951-4135d27f9446/-/preview/">
+><img width="50%" src="https://upload.acmicpc.net/7b0d9d57-1296-44cd-8951-4135d27f9446/-/preview/">
 >
 >왼쪽과 오른쪽에 칸이 없기 때문에, 두 방향으로만 확산이 일어났다.
 >
-><img src="https://upload.acmicpc.net/cebebfa9-0056-45f1-b705-75b035888085/-/preview/">
+><img width="50%" src="https://upload.acmicpc.net/cebebfa9-0056-45f1-b705-75b035888085/-/preview/">
 >
 >인접한 네 방향으로 모두 확산이 일어난다.
 >
-><img src="https://upload.acmicpc.net/1ed0d2e9-9767-4b94-bbde-0e1d6a2d52ff/-/preview/">
+><img width="50%" src="https://upload.acmicpc.net/1ed0d2e9-9767-4b94-bbde-0e1d6a2d52ff/-/preview/">
 >
 >공기청정기가 있는 칸으로는 확산이 일어나지 않는다.
 >
 >공기청정기의 바람은 다음과 같은 방향으로 순환한다.
 >
-><img src="https://upload.acmicpc.net/94466937-96c7-4f25-9804-530ebd554a59/-/preview/">
+><img width="50%" src="https://upload.acmicpc.net/94466937-96c7-4f25-9804-530ebd554a59/-/preview/">
 >
 >방의 정보가 주어졌을 때, T초가 지난 후 구사과의 방에 남아있는 미세먼지의 양을 구해보자.
 
