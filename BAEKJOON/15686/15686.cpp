@@ -9,8 +9,8 @@ using namespace std;
 int ans=1e9+7;
 int N,M;
 int arr[52][52];
-int m_x[4]={-1,1,0,0};
-int m_y[4]={0,0,-1,1};
+int m_x[4]={-1,0,1,0};
+int m_y[4]={0,1,0,-1};
 vector<pair<int,int>> house, Chouse, V;
 
 void input(){
@@ -18,19 +18,11 @@ void input(){
     for(int i=1;i<=N;i++)
         for(int j=1;j<=N;j++){
             cin>>arr[i][j]; 
-            if(arr[i][j]==1)house.push_back({i,j});
-            else if(arr[i][j]==2){Chouse.push_back({i,j});arr[i][j]=0;}}
     for(int i=0;i<=N+1;i++)
         arr[0][i]=arr[N+1][i]=arr[i][0]=arr[i][N+1]=3;
 }
 
-/*class space{
-public:    
-    int x,y;
-    int cnt;
-};*/
-
-void bfs(int tmp[52][52]){
+void bfs(){
     int cnt=0;
 
     for(int i=0;i<house.size();i++){
