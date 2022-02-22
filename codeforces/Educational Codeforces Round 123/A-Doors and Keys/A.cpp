@@ -33,6 +33,7 @@ void solve()
     for (int i = 0; i < t; i++)
     {
         string way;
+        cin >> way;
 
         cout << (check(way) ? "YES" : "NO") << '\n';
     }
