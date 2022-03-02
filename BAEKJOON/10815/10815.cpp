@@ -1,58 +1,46 @@
 #include <iostream>
-#include <queue>
 #include <vector>
+#include <algorithm>
 using namespace std;
-
-int N, M;
-
-priority_queue<unsigned int> sgCard;
-priority_queue<pair<unsigned int, int>> Card;
-vector<int> v;
-
-void solve()
-{
-    unsigned int tmp;
-    cin >> N;
-
-    for (int i = 0; i < N; i++)
-    {
-        cin >> tmp;
-        sgCard.push(tmp);
-    }
-    cin >> M;
-
-    for (int i = 0; i < M; i++)
-    {
-        cin >> tmp;
-        Card.push({tmp, i});
-    }
-    v.resize(M, 0);
-
-    for (int i = 0; i < M; i++)
-    {
-        // cout << sgCard.top() << ',' << Card.top().first << '\n';
-        if (sgCard.top() == Card.top().first)
-        {
-            v[Card.top().second] = 1;
-            Card.pop();
-        }
-        else
-        {
-            v[Card.top().second] = 0;
-            Card.pop();
-        }
-
-        if (sgCard.top() > Card.top().first)
-            sgCard.pop();
-    }
-    for (int i = 0; i < M; i++)
-    {
-        cout << v[i] << ' ';
-    }
-}
 
 int main()
 {
-    solve();
-    return 0;
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
+
+    int N = 0, M = 0;
+    int i = 0;
+
+    cin >> N;
+    vector<int> card(N, 0);
+    for (i = 0; i < N; ++i)
+        cin >> card[i];
+    sort(card.begin(), card.end());
+
+    cin >> M;
+
+    vector<int> check(M, 0);
+    vector<int> answer(M, 0);
+
+    for (i = 0; i < M; ++i)
+    {
+        cin >> check[i];
+        int low = 0;
+        int high = N - 1;
+        while (low <= high)
+        {
+            int mid = (low + high) / 2;
+            if (card[mid] == check[i])
+            {
+                answer[i]++;
+                break;
+            }
+            else if (card[mid] < check[i])
+                low = mid + 1;
+            else if (card[mid] > check[i])
+                high = mid - 1;
+        }
+    }
+    for (i = 0; i < M; ++i)
+        cout << answer[i] << " ";
 }
