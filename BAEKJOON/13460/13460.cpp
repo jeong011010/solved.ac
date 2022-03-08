@@ -24,26 +24,28 @@ void bfs()
         B.pop();
         for (int i = 0; i < 4; i++)
         {
-            int a = b.ry + My[i];
-            int b = b.ry + My[i];
-            while (arr[b.ry + My[i]][b.rx + Mx[i]] == '.' || arr[b.by + My[i]][b.bx + Mx[i]] == '.')
+            int rym = b.ry + My[i];
+            int rxm = b.rx + Mx[i];
+            int bym = b.by + My[i];
+            int bxm = b.bx + Mx[i];
+            while (arr[rym][rxm] == '.' || arr[bym][bxm] == '.')
             {
-                if (arr[b.ry + My[i]][b.rx + Mx[i]] == '.')
+                if (arr[rym][rxm] == '.')
                 {
                     b.ry += My[i];
                     b.rx += Mx[i];
                 }
-                if (arr[b.by + My[i]][b.bx + Mx[i]] == '.')
+                if (arr[bym][bxm] == '.')
                 {
                     b.ry += My[i];
                     b.rx += Mx[i];
-                    if (arr[b.ry + My[i]][b.rx + Mx[i]] == '.')
+                    if (arr[rym][rxm] == '.')
                     {
                         b.ry += My[i];
                         b.rx += Mx[i];
                     }
                 }
-                if (arr[b.ry + My[i]][b.rx + Mx[i]] == 'O')
+                if (arr[rym][rxm] == 'O')
                 {
                 }
             }
