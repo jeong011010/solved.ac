@@ -19,7 +19,7 @@
 >   - 체스판을 벗어나는 경우에는 파란색과 같은 경우이다.
 >다음은 크기가 4×4인 체스판 위에 말이 4개 있는 경우이다.
 >
-><img src="https://upload.acmicpc.net/0aec7e3d-e8f5-428a-bebc-6a0fd514b387/-/preview/" width="30%" text-align:center>
+><img src="https://upload.acmicpc.net/0aec7e3d-e8f5-428a-bebc-6a0fd514b387/-/preview/" width="30%" align="center">
 >
 >첫 번째 턴은 다음과 같이 진행된다.
 ><div><img src="https://upload.acmicpc.net/46796304-b486-4420-9d2c-ea49e2d5665b/-/preview/" width="30%"><img src="https://upload.acmicpc.net/04643ced-fdfd-46f5-a07e-374704dbb1c5/-/preview/" width="30%"><img src="https://upload.acmicpc.net/46f4bfab-841b-41c8-842e-56027816f846/-/preview/" width="30%"><img src="https://upload.acmicpc.net/fcccf76c-9431-4ff5-8a05-7dbd2feff142/-/preview/" width="30%"></div>
