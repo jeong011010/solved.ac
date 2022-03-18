@@ -17,8 +17,8 @@ dp[]를 해당 idx에서 가질 수 있는 가장 큰 합이라고 하자.
 - dp[idx]+arr[i]가 dp[i]보다 클 때
 dp[idx]+arr[i]로 교체해준다.
 
-그러므로 점화식은
-if(dp[j]+arr[i]>dp[i] && arr[i]>arr[j]) (j<i)
+그러므로 점화식은  
+if(dp[j]+arr[i]>dp[i] && arr[i]>arr[j]) (j<i)  
 이다.
 
 ### 오답노트
