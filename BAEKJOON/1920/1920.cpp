@@ -23,20 +23,10 @@ void solve()
     for (int i = 0; i < M; i++)
     {
         int ans = 0;
-        left = 0;
-        right = N;
-        while (left <= right)
+
+        if (binary_search(arr, arr + N, sol[i]))
         {
-            int mid = (right + left) / 2;
-            if (arr[mid] == sol[i])
-            {
-                ans = 1;
-                break;
-            }
-            else if (arr[mid] > sol[i])
-                right = mid - 1;
-            else
-                left = mid + 1;
+            ans = 1;
         }
         cout << ans << '\n';
     }
