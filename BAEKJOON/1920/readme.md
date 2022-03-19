@@ -14,5 +14,9 @@ left와 right 값을 정한 뒤, mid=right+left / 2라고 했을 때, mid가 찾
 아닐 때, mid가 찾는 값보다 크다면 mid보다 밑의 값이므로 right를 mid-1로 바꿔준다
 mid가 찾는 값보다 작다면 mid보다 위의 값이므로 left를 mid+1로 바꿔준다.
 
+binary_search 함수 (algorithm) 를 알게되어서 사용해봤는데 천국이다.
+
+__binary_search(start, end, key)__ 로 반환값은 bool형이다.
+
 ### 오답노트
 ----------
