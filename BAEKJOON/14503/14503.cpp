@@ -40,7 +40,7 @@ void simul()
         {
             if (arr[V.r + ym[V.d]][V.c + xm[V.d]] == 0)
             {                // 왼쪽칸이 빈칸이라면
-                isgo = true; // 해당칸으로 전진
+                isgo = true; // 해당칸으로 전진  
                 V.r += ym[V.d];
                 V.c += xm[V.d];
                 V.d = (V.d + 1) % 4; // 왼쪽으로 회전
