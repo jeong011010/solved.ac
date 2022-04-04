@@ -3,22 +3,35 @@
 #include <vector>
 using namespace std;
 
-int N, M;
+int N, M, idx = 1;
 vector<int> v[100001];
-int visit[100001];
+int visit[100001], dfsn[100001], parent[100001];
 
-void cactus(int u, int p)
+void cactus(int cur, int par)
 {
-    for (int i = 0; i < v[u].size(); i++)
+    dfsn[cur] = idx++;
+    visit[cur]++;
+    parent[cur] = par;
+    for (int i = 0; i < v[cur].size(); i++)
     {
-        int tmp = v[u][i];
-        if (p != tmp)
+        if (v[cur][i] == par || dfsn[v[cur][i]] >= dfsn[cur])
+            continue;
+        if (visit[v[cur][i]])
         {
-            if (visit[tmp] == 0)
+            int tmp = cur;
+            while (tmp != parent[v[cur][i]])
             {
-                visit[tmp] = visit[u] + 1;
+                if (visit[tmp] == 2)
+                {
+                    cout << "Not cactus";
+                    exit(0);
+                }
+                visit[tmp]++;
+                tmp = parent[tmp];
             }
         }
+        else
+            cactus(v[cur][i], cur);
     }
 }
 
@@ -33,11 +46,8 @@ void solve()
         v[y].push_back(x);
     }
 
-    for (int i = 1; i <= N; i++)
-    {
-        if (!visit[i])
-            cactus(i);
-    }
+    cactus(1, -1);
+    cout << "Cactus";
 }
 
 int main()
