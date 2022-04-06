@@ -1,74 +1,53 @@
 #include <iostream>
-#include <vector>
+#include <algorithm>
+#include <string>
 using namespace std;
 
-int N, K;
-int sd[100];
-int tap[100];
-bool use[101];
+int n, max_ans;
+string str;
 
-void solve()
+int cal(int a, int b, char oper)
 {
-    cin >> N >> K;
-    int cnt = 0, ans = 0;
-    for (int i = 0; i < K; i++)
+    int result = a;
+    switch (oper)
     {
-        cin >> sd[i];
+    case '+':
+        result += b;
+        break;
+    case '*':
+        result *= b;
+        break;
+    case '-':
+        result -= b;
+        break;
     }
-    for (int i = 0; i < K; i++)
+    return result;
+}
+
+void recur(int idx, int cur)
+{
+    // 1. 종료 조건
+    if (idx > n - 1)
     {
-        if (use[sd[i]])
-        {
-            continue;
-        }
-        else if (cnt < N)
-        {
-            use[sd[i]] = 1;
-            tap[cnt++] = sd[i];
-        }
-        else
-        {
-            ans++;
-            bool allin = true;
-            int m = 0, tmp = 0;
-            for (int j = 0; j < N; j++)
-            {
-                bool isin = false;
-                for (int k = i; k < K; k++)
-                {
-                    if (sd[k] == tap[j])
-                    {
-                        if (m < k)
-                        {
-                            m = k;
-                            tmp = j;
-                        }
-                        isin = true;
-                        break;
-                    }
-                }
-                if (!isin)
-                {
-                    allin = false;
-                    use[tap[j]] = 0;
-                    use[sd[i]] = 1;
-                    tap[j] = sd[i];
-                    break;
-                }
-            }
-            if (allin)
-            {
-                use[tap[tmp]] = 0;
-                use[sd[i]] = 1;
-                tap[tmp] = sd[i];
-            }
-        }
+        max_ans = max(max_ans, cur);
+        return;
     }
-    cout << ans;
+    char oper = (idx == 0) ? '+' : str[idx - 1];
+
+    // 2. 괄호로 묶는다 = 이전 + 괄호 계산
+    if (idx + 2 < n)
+    {
+        int bracket = cal(str[idx] - '0', str[idx + 2] - '0', str[idx + 1]);
+        recur(idx + 4, cal(cur, bracket, oper));
+    }
+    // 3. 안 묶는다 = 이전 + 다음
+    recur(idx + 2, cal(cur, str[idx] - '0', oper));
 }
 
 int main()
 {
-    solve();
+    cin >> n >> str;
+    recur(0, 0);
+    cout << max_ans;
     return 0;
 }
