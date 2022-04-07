@@ -3,7 +3,7 @@
 #include <string>
 using namespace std;
 
-int n, max_ans;
+int n, max_ans=int(-1e9);
 string str;
 
 int cal(int a, int b, char oper)
