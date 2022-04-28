@@ -3,8 +3,11 @@
 #include <vector>
 using namespace std;
 
-bool check = false;
 vector<int> v[9];
+
+bool isin[9][9][9];
+int ans[9];
+
 int block[9][9][2] = {
     {{0, 0}, {0, 1}, {0, 2}, {1, 0}, {1, 1}, {1, 2}, {2, 0}, {2, 1}, {2, 2}},
     {{0, 3}, {0, 4}, {0, 5}, {1, 3}, {1, 4}, {1, 5}, {2, 3}, {2, 4}, {2, 5}},
@@ -65,10 +68,6 @@ int f(vector<int> board[9], int y, int x)
 
 void sudoku(vector<int> board[9])
 {
-
-    if (check)
-        return;
-
     bool full = true;
     for (int i = 0; i < 9; i++)
     {
@@ -78,9 +77,11 @@ void sudoku(vector<int> board[9])
             {
                 full = false;
                 int tmp = f(board, i, j);
-                if (tmp != 0)
+                if (tmp != 0 && !isin[i][j][tmp])
                 {
+                    // cout << i << ' ' << j << ' ' << tmp << '\n';
                     board[i][j] = tmp;
+                    isin[i][j][tmp] = 1;
                     sudoku(board);
                     board[i][j] = 0;
                 }
@@ -90,21 +91,32 @@ void sudoku(vector<int> board[9])
 
     if (full)
     {
-        check = true;
-
+        bool change = false;
         for (int i = 0; i < 9; i++)
         {
+            int tmp = 0;
             for (int j = 0; j < 9; j++)
             {
-                cout << board[i][j];
+                tmp += board[i][j];
+                if (j < 8)
+                    tmp *= 10;
             }
-            cout << '\n';
+            if (ans[i] > tmp)
+            {
+                change = true;
+            }
+            if (change)
+            {
+                ans[i] = tmp;
+            }
         }
     }
 }
 
 void solve()
 {
+    for (int i = 0; i < 9; i++)
+        ans[i] = 999999999;
     string tmp;
     vector<int> b[9];
     for (int i = 0; i < 9; i++)
@@ -116,6 +128,10 @@ void solve()
         }
     }
     sudoku(b);
+    for (int i = 0; i < 9; i++)
+    {
+        cout << ans[i] << '\n';
+    }
 }
 
 int main()
