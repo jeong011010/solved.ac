@@ -13,7 +13,6 @@ void solve()
     long long sum = 0;
     for (int i = 0; i < N; i++)
     {
-        while ()
     }
 }
 
