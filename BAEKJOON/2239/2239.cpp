@@ -8,40 +8,61 @@ vector<int> v[9];
 bool isin[9][9][9];
 int ans[9];
 
-bool f(vector<int> board[9], int y, int x, int k)
+int f(vector<int> board[9], int y, int x, int k)
 {
+    bool check[10];
+    for (int i = 0; i < 10; i++)
+        check[i] = false;
+    bool a, b, c;
+    a = b = c = false;
     int block_x = x / 3;
     int block_y = y / 3;
     for (int i = 0; i < 9; i++)
     {
-        if (board[y][i] == k || board[i][x] == k)
-        {
-            return true;
-        }
+        check[board[y][i]] = true;
+        check[board[i][x]] = true;
+        if (board[y][i] == k)
+            a = true;
+        if (board[i][x] == k)
+            b = true;
     }
     for (int i = 3 * block_y; i < 3 * block_y + 3; i++)
     {
-        for (int j = 3 * block_y; j < 3 * block_x + 3; j++)
+        for (int j = 3 * block_x; j < 3 * block_x + 3; j++)
         {
+            check[board[i][j]] = true;
             if (board[i][j] == k)
-                return true;
+            {
+                c = true;
+            }
         }
     }
-    return false;
+    bool can = false;
+    for (int i = 1; i < 10; i++)
+    {
+        if (!check[i])
+            can = true;
+    }
+    if (!can)
+        return 2;
+    if (!a && !b && !c)
+        return 0;
+    else
+        return 1;
 }
 
 bool finish = false;
 
 void sudoku(vector<int> board[9])
 {
-    for (int i = 0; i < 9; i++)
+    /*for (int i = 0; i < 9; i++)
     {
         for (int j = 0; j < 9; j++)
         {
             cout << board[i][j];
         }
         cout << '\n';
-    }
+    }*/
     if (finish)
         return;
     bool full = true;
@@ -54,16 +75,20 @@ void sudoku(vector<int> board[9])
                 full = false;
                 for (int k = 1; k < 10; k++)
                 {
-                    if (!isin[i][j][k])
                     {
-                        if (!f(board, i, j, k))
+                        int tmp = f(board, i, j, k);
+                        if (tmp == 0)
                         {
-                            isin[i][j][k] = true;
                             board[i][j] = k;
                             cout << i << ' ' << j << ' ' << k << '\n';
                             sudoku(board);
                             board[i][j] = 0;
-                            cout << "빽\n";
+                            // cout << "빽1\n";
+                        }
+                        else if (tmp == 2)
+                        {
+                            // cout << "빽2\n";
+                            return;
                         }
                     }
                 }
