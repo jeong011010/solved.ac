@@ -8,66 +8,42 @@ vector<int> v[9];
 bool isin[9][9][9];
 int ans[9];
 
-int block[9][9][2] = {
-    {{0, 0}, {0, 1}, {0, 2}, {1, 0}, {1, 1}, {1, 2}, {2, 0}, {2, 1}, {2, 2}},
-    {{0, 3}, {0, 4}, {0, 5}, {1, 3}, {1, 4}, {1, 5}, {2, 3}, {2, 4}, {2, 5}},
-    {{0, 6}, {0, 7}, {0, 8}, {1, 6}, {1, 7}, {1, 8}, {2, 6}, {2, 7}, {2, 8}},
-    {{3, 0}, {3, 1}, {3, 2}, {4, 0}, {4, 1}, {4, 2}, {5, 0}, {5, 1}, {5, 2}},
-    {{3, 3}, {3, 4}, {3, 5}, {4, 3}, {4, 4}, {4, 5}, {5, 3}, {5, 4}, {5, 5}},
-    {{3, 6}, {3, 7}, {3, 8}, {4, 6}, {4, 7}, {4, 8}, {5, 6}, {5, 7}, {5, 8}},
-    {{6, 0}, {6, 1}, {6, 2}, {7, 0}, {7, 1}, {7, 2}, {8, 0}, {8, 1}, {8, 2}},
-    {{6, 3}, {6, 4}, {6, 5}, {7, 3}, {7, 4}, {7, 5}, {8, 3}, {8, 4}, {8, 5}},
-    {{6, 6}, {6, 7}, {6, 8}, {7, 6}, {7, 7}, {7, 8}, {8, 6}, {8, 7}, {8, 8}},
-};
-
-int f(vector<int> board[9], int y, int x)
+bool f(vector<int> board[9], int y, int x, int k)
 {
-    bool check[10];
-    for (int i = 0; i < 10; i++)
-        check[i] = 0;
-
+    int block_x = x / 3;
+    int block_y = y / 3;
     for (int i = 0; i < 9; i++)
     {
-        check[board[y][i]] = 1;
-        check[board[i][x]] = 1;
+        if (board[y][i] == k || board[i][x] == k)
+        {
+            return true;
+        }
     }
-    int n;
-    bool b = false;
+    for (int i = 3 * block_y; i < 3 * block_y + 3; i++)
+    {
+        for (int j = 3 * block_y; j < 3 * block_x + 3; j++)
+        {
+            if (board[i][j] == k)
+                return true;
+        }
+    }
+    return false;
+}
+
+bool finish = false;
+
+void sudoku(vector<int> board[9])
+{
     for (int i = 0; i < 9; i++)
     {
         for (int j = 0; j < 9; j++)
         {
-            if (block[i][j][0] == y && block[i][j][1] == x)
-            {
-                n = i;
-                b = true;
-                break;
-            }
+            cout << board[i][j];
         }
-        if (b)
-            break;
+        cout << '\n';
     }
-
-    for (int i = 0; i < 9; i++)
-    {
-        check[board[block[n][i][0]][block[n][i][1]]] = 1;
-    }
-    int cnt = 0;
-    for (int i = 1; i < 10; i++)
-    {
-        if (!check[i])
-        {
-            cnt++;
-            n = i;
-        }
-    }
-    if (cnt == 1)
-        return n;
-    return 0;
-}
-
-void sudoku(vector<int> board[9])
-{
+    if (finish)
+        return;
     bool full = true;
     for (int i = 0; i < 9; i++)
     {
@@ -76,14 +52,20 @@ void sudoku(vector<int> board[9])
             if (board[i][j] == 0)
             {
                 full = false;
-                int tmp = f(board, i, j);
-                if (tmp != 0 && !isin[i][j][tmp])
+                for (int k = 1; k < 10; k++)
                 {
-                    // cout << i << ' ' << j << ' ' << tmp << '\n';
-                    board[i][j] = tmp;
-                    isin[i][j][tmp] = 1;
-                    sudoku(board);
-                    board[i][j] = 0;
+                    if (!isin[i][j][k])
+                    {
+                        if (!f(board, i, j, k))
+                        {
+                            isin[i][j][k] = true;
+                            board[i][j] = k;
+                            cout << i << ' ' << j << ' ' << k << '\n';
+                            sudoku(board);
+                            board[i][j] = 0;
+                            cout << "빽\n";
+                        }
+                    }
                 }
             }
         }
@@ -91,6 +73,8 @@ void sudoku(vector<int> board[9])
 
     if (full)
     {
+        cout << "!!!\n";
+        finish = true;
         bool change = false;
         for (int i = 0; i < 9; i++)
         {
