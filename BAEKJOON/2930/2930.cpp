@@ -36,7 +36,7 @@ void solve()
     score = 0;
     for (int i = 0; i < R; i++)
     {
-        int n[3];
+        int n[3], x = 0;
         for (int j = 0; j < 3; j++)
             n[j] = 0;
         for (int j = 0; j < N; j++)
@@ -48,15 +48,15 @@ void solve()
             else if (friends[j][i] == 'P')
                 n[2]++;
         }
-        vector<int> v;
+        int sum, ans = 0;
         for (int j = 0; j < 3; j++)
         {
-            v.push_back(n[j]);
+            sum = 0;
+            sum += n[j];
+            sum += n[(j + 1) % 3] * 2;
+            ans = max(sum, ans);
         }
-        sort(v.begin(), v.end());
-
-        score += v[1];
-        score += v[2] * 2;
+        score += ans;
     }
     cout << score << '\n';
 }
