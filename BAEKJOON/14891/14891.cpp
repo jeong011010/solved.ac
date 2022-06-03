@@ -25,16 +25,16 @@ void run(int n, int mode, int path)
     {
         if (v[n][6] != v[n - 1][2])
         {
-            turn(n - 1, -1 * mode);
             run(n - 1, -1 * mode, -1);
+            turn(n - 1, -1 * mode);
         }
     }
     if (n < 3 && path == 1)
     {
         if (v[n][2] != v[n + 1][6])
         {
-            turn(n + 1, -1 * mode);
             run(n + 1, -1 * mode, 1);
+            turn(n + 1, -1 * mode);
         }
     }
 }
