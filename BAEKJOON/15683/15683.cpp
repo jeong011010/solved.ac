@@ -120,39 +120,80 @@ void f(int c, int y, int x)
     }
 }
 
-void bf()
-{
-    for (int i = 0; i < N; i++)
-    {
-        for (int j = 0; j < M; j++)
-        {
-            if (board[i][j] > 0 && board[i][j < 6])
-                f(board[i][j], i, j);
-        }
-    }
-}
+bool check[8][8];
+int ans = 64;
 
-void print()
+void print(int arr[8][8])
 {
-    int ans = 0;
     for (int i = 0; i < N; i++)
     {
         for (int j = 0; j < M; j++)
         {
-            cout << board[i][j] << ' ';
-            if (board[i][j] == 0)
-                ans++;
+            cout << arr[i][j] << ' ';
         }
         cout << '\n';
     }
-    cout << ans;
+    cout << '\n';
+}
+
+void bf(int arr[8][8])
+{
+    // print(arr);
+    int tmp_board[8][8];
+    for (int i = 0; i < N; i++)
+    {
+        for (int j = 0; j < M; j++)
+        {
+            tmp_board[i][j] = arr[i][j];
+            board[i][j] = arr[i][j];
+        }
+    }
+    for (int i = 0; i < N; i++)
+    {
+        for (int j = 0; j < M; j++)
+        {
+            if (arr[i][j] > 0 && arr[i][j] < 6 && !check[i][j])
+            {
+                // cout << i << ',' << j << '\n';
+                f(arr[i][j], i, j);
+                check[i][j] = true;
+                for (int i = 0; i < N; i++)
+                {
+                    for (int j = 0; j < M; j++)
+                    {
+                        arr[i][j] = board[i][j];
+                    }
+                }
+                bf(arr);
+                check[i][j] = false;
+                for (int i = 0; i < N; i++)
+                {
+                    for (int j = 0; j < M; j++)
+                    {
+                        arr[i][j] = tmp_board[i][j];
+                    }
+                }
+            }
+        }
+    }
+    int a = 0;
+    for (int i = 0; i < N; i++)
+    {
+        for (int j = 0; j < M; j++)
+        {
+            if (arr[i][j] == 0)
+                a++;
+        }
+    }
+    ans = min(ans, a);
 }
 
 void solve()
 {
     input();
-    bf();
-    print();
+    bf(board);
+    // print(board);
+    cout << ans << '\n';
 }
 
 int main()
