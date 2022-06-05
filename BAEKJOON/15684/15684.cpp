@@ -1,8 +1,8 @@
 #include <iostream>
-#include <map>
+//#include <map>
 using namespace std;
 
-map<string, bool> m;
+// map<string, bool> m;
 int N, M, H;
 
 int lad[30][10];
@@ -32,7 +32,7 @@ void input()
 }
 
 int n = 0, ans = 4;
-
+/*
 bool key()
 {
     string s = "";
@@ -45,11 +45,12 @@ bool key()
     }
     if (m.find(s) != m.end())
     {
+        cout << "find" << s << '\n';
         return false;
     }
     m.insert({s, 0});
     return true;
-}
+}*/
 
 void print()
 {
@@ -84,11 +85,9 @@ bool run()
 
 void setting(int y, int x)
 {
-    if (!key())
-        return;
     if (run())
         return;
-    if (n > 3)
+    if (n > 2)
         return;
     // print();
     for (int i = y; i < H; i++)
@@ -99,12 +98,14 @@ void setting(int y, int x)
                 continue;
             if (lad[i][j] == j && lad[i][j + 1] == j + 1)
             {
+                // cout << i + 1 << "번 높이에 " << j + 1 << "번 세로줄과 " << j + 2 << "세로줄\n";
                 lad[i][j] = j + 1;
                 lad[i][j + 1] = j;
                 n++;
-                // cout << i << ',' << j << 'i' << '\n';
+
                 setting(i, j);
-                // cout << i << ',' << j << 'd' << '\n';
+                // cout << i + 1 << "번 높이에 " << j + 1 << "번 세로줄과 " << j + 2 << "세로줄 삭제\n";
+
                 lad[i][j] = j;
                 lad[i][j + 1] = j + 1;
                 n--;
