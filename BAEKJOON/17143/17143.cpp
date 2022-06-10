@@ -2,7 +2,7 @@
 
 using namespace std;
 
-int R, C, M;
+int R, C, M, d;
 int board[100][100];
 
 void input()
