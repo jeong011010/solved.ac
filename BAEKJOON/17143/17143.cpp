@@ -12,7 +12,7 @@ void input()
     for (int i = 0; i < M; i++)
     {
         cin >> r >> c >> s >> d >> z;
-    }//
+    } // d
 }
 
 void solve()
