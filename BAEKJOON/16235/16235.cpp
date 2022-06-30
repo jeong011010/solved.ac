@@ -1,11 +1,13 @@
 #include <iostream>
 #include <vector>
+#include <deque>
+#include <queue>
 #include <algorithm>
 using namespace std;
 
-vector<pair<pair<int, int>, int>> tree; // y,x,age,die
-int A[10][10];
-int board[10][10];
+deque<int> trees[11][11];
+int A[11][11];
+int board[11][11];
 int my[8] = {-1, -1, -1, 0, 0, 1, 1, 1};
 int mx[8] = {-1, 0, 1, -1, 1, -1, 0, 1};
 int N, M, K;
@@ -13,9 +15,9 @@ int N, M, K;
 void input()
 {
     cin >> N >> M >> K;
-    for (int i = 0; i < N; i++)
+    for (int i = 1; i <= N; i++)
     {
-        for (int j = 0; j < N; j++)
+        for (int j = 1; j <= N; j++)
         {
             cin >> A[i][j];
             board[i][j] = 5;
@@ -25,62 +27,55 @@ void input()
     for (int i = 0; i < M; i++)
     {
         cin >> x >> y >> z;
-        tree.push_back({{y - 1, x - 1}, z});
+        trees[x][y].push_back(z);
     }
 }
 
 void season()
 {
-    vector<pair<pair<int, int>, int>> die;
-    sort(tree.begin(), tree.end());
-    for (int i = 0; i < tree.size(); i++)
-    { // spring
-
-        int y = tree[i].first.first;
-        int x = tree[i].first.second;
-        int z = tree[i].second;
-        if (z <= board[y][x])
+    for (int i = 1; i <= N; i++)
+        for (int j = 1; j <= N; j++)
         {
-            board[y][x] -= z;
-            tree[i].second++;
-        }
-        else
-        {
-            tree.erase(tree.begin() + i);
-            i--;
-            die.push_back({{y, x}, z});
-        }
-    }
-
-    for (int i = 0; i < die.size(); i++)
-    { // summer
-        int y = die[i].first.first;
-        int x = die[i].first.second;
-        board[y][x] += die[i].second / 2;
-    }
-
-    for (int i = 0; i < tree.size(); i++)
-    { // fall
-        if (tree[i].second % 5 == 0)
-        {
-            int y = tree[i].first.first;
-            int x = tree[i].first.second;
-            for (int j = 0; j < 8; j++)
+            int size = trees[i][j].size();
+            int k = 0;
+            for (; k < size; k++)
             {
-                int ny = y + my[j];
-                int nx = x + mx[j];
-                if (ny >= 0 && ny < N && nx >= 0 && nx < N)
+                if (board[i][j] >= trees[i][j][k])
                 {
-                    tree.push_back({{ny, nx}, 1});
+                    board[i][j] -= trees[i][j][k];
+                    trees[i][j][k]++;
+                }
+                else
+                {
+                    break;
                 }
             }
+            for (int p = size - 1; p >= k; p--)
+            {
+                board[i][j] += trees[i][j][p] / 2;
+                trees[i][j].pop_back();
+            }
         }
-    }
 
-    for (int i = 0; i < N; i++)
-    { // winter
-        for (int j = 0; j < N; j++)
+    for (int i = 1; i <= N; i++)
+    {
+        for (int j = 1; j <= N; j++)
         {
+            for (int k = 0; k < trees[i][j].size(); k++)
+            {
+                if (trees[i][j][k] % 5 == 0)
+                {
+                    for (int l = 0; l < 8; l++)
+                    {
+                        int nx = i + mx[l];
+                        int ny = j + my[l];
+                        if (nx < 1 || nx > N || ny < 1 || ny > N)
+                            continue;
+                        else
+                            trees[nx][ny].push_front(1);
+                    }
+                }
+            }
             board[i][j] += A[i][j];
         }
     }
@@ -88,33 +83,27 @@ void season()
 
 void livetree()
 {
-    cout << tree.size();
-}
-
-void print()
-{
-    for (int i = 0; i < N; i++)
+    int ans = 0;
+    for (int i = 1; i <= N; i++)
     {
-        for (int j = 0; j < N; j++)
+        for (int j = 1; j <= N; j++)
         {
-            cout << board[i][j] << ' ';
+            // cout << trees[i][j].size() << '\n';
+            if (trees[i][j].size() > 0)
+            {
+                ans += trees[i][j].size();
+            }
         }
-        cout << '\n';
     }
-    for (int i = 0; i < tree.size(); i++)
-    {
-        cout << tree[i].first.first << ',' << tree[i].first.second << ':' << tree[i].second << '\n';
-    }
+    cout << ans;
 }
 
 void solve()
 {
     input();
-    // print();
     while (K--)
     {
         season();
-        // print();
     }
     livetree();
 }
