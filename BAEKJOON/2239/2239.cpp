@@ -1,146 +1,78 @@
 #include <iostream>
-#include <string>
-#include <vector>
 using namespace std;
 
-vector<int> v[9];
+bool R[9][9], C[9][9], S[9][9]; // Row, Col, Square
+int MAP[9][9];
 
-bool isin[9][9][9];
-int ans[9];
-
-int f(vector<int> board[9], int y, int x, int k)
+void input()
 {
-    bool check[10];
-    for (int i = 0; i < 10; i++)
-        check[i] = false;
-    bool a, b, c;
-    a = b = c = false;
-    int block_x = x / 3;
-    int block_y = y / 3;
+    string s;
     for (int i = 0; i < 9; i++)
     {
-        check[board[y][i]] = true;
-        check[board[i][x]] = true;
-        if (board[y][i] == k)
-            a = true;
-        if (board[i][x] == k)
-            b = true;
-    }
-    for (int i = 3 * block_y; i < 3 * block_y + 3; i++)
-    {
-        for (int j = 3 * block_x; j < 3 * block_x + 3; j++)
+        cin >> s;
+        for (int j = 0; j < 9; j++)
         {
-            check[board[i][j]] = true;
-            if (board[i][j] == k)
+            MAP[i][j] = s[j] - 48;
+            if (MAP[i][j] != 0)
             {
-                c = true;
+                R[i][MAP[i][j]] = true;
+                C[j][MAP[i][j]] = true;
+                S[(i / 3) * 3 + (j / 3)][MAP[i][j]] = true;
             }
         }
     }
-    bool can = false;
-    for (int i = 1; i < 10; i++)
-    {
-        if (!check[i])
-            can = true;
-    }
-    if (!can)
-        return 2;
-    if (!a && !b && !c)
-        return 0;
-    else
-        return 1;
 }
 
-bool finish = false;
-
-void sudoku(vector<int> board[9])
+void print()
 {
-    /*for (int i = 0; i < 9; i++)
-    {
-        for (int j = 0; j < 9; j++)
-        {
-            cout << board[i][j];
-        }
-        cout << '\n';
-    }*/
-    if (finish)
-        return;
-    bool full = true;
     for (int i = 0; i < 9; i++)
     {
         for (int j = 0; j < 9; j++)
         {
-            if (board[i][j] == 0)
-            {
-                full = false;
-                for (int k = 1; k < 10; k++)
-                {
-                    {
-                        int tmp = f(board, i, j, k);
-                        if (tmp == 0)
-                        {
-                            board[i][j] = k;
-                            cout << i << ' ' << j << ' ' << k << '\n';
-                            sudoku(board);
-                            board[i][j] = 0;
-                            // cout << "빽1\n";
-                        }
-                        else if (tmp == 2)
-                        {
-                            // cout << "빽2\n";
-                            return;
-                        }
-                    }
-                }
-            }
+            cout << MAP[i][j];
         }
+        cout << '\n';
+    }
+}
+
+void DFS(int cnt)
+{
+
+    int x = cnt / 9;
+    int y = cnt % 9;
+
+    if (cnt == 81)
+    {
+        print();
+        exit(0);
     }
 
-    if (full)
+    if (MAP[x][y] == 0)
     {
-        cout << "!!!\n";
-        finish = true;
-        bool change = false;
-        for (int i = 0; i < 9; i++)
+        for (int i = 1; i <= 9; i++)
         {
-            int tmp = 0;
-            for (int j = 0; j < 9; j++)
+            if (R[x][i] == false && C[y][i] == false && S[(x / 3) * 3 + (y / 3)][i] == false)
             {
-                tmp += board[i][j];
-                if (j < 8)
-                    tmp *= 10;
-            }
-            if (ans[i] > tmp)
-            {
-                change = true;
-            }
-            if (change)
-            {
-                ans[i] = tmp;
+                R[x][i] = true;
+                C[y][i] = true;
+                S[(x / 3) * 3 + (y / 3)][i] = true;
+                MAP[x][y] = i;
+                DFS(cnt + 1);
+                R[x][i] = false;
+                C[y][i] = false;
+                S[(x / 3) * 3 + (y / 3)][i] = false;
+                MAP[x][y] = 0;
             }
         }
     }
+    else
+        DFS(cnt + 1);
 }
 
 void solve()
 {
-    for (int i = 0; i < 9; i++)
-        ans[i] = 999999999;
-    string tmp;
-    vector<int> b[9];
-    for (int i = 0; i < 9; i++)
-    {
-        cin >> tmp;
-        for (int j = 0; j < 9; j++)
-        {
-            b[i].push_back(tmp[j] - 48);
-        }
-    }
-    sudoku(b);
-    for (int i = 0; i < 9; i++)
-    {
-        cout << ans[i] << '\n';
-    }
+    input();
+    DFS(0);
 }
 
 int main()
