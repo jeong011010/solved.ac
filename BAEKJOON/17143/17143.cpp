@@ -5,9 +5,9 @@ using namespace std;
 int R, C, M, d;
 typedef struct shark
 {
+    int s; // size
     int f; // fast
     int p; // path (1:up, 2:down, 3:right, 4:left)
-    int s; // size
     int m; // move time
 };
 
